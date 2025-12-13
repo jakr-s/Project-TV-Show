@@ -28,11 +28,18 @@ function makePageForEpisodes(episodeList) {
       // Remove HTML tags
       episode.summary?.replace(/<[^>]+>/g, "") || "No summary available.";
 
+    const linkElem = document.createElement("a");
+    linkElem.className = "episode-link";
+    linkElem.href = episode.url;
+    linkElem.target = "_blank";
+    linkElem.textContent = "View on TVMaze.com";
+
     const cardElem = document.createElement("article");
     cardElem.className = "episode-card";
     cardElem.appendChild(titleElem);
     cardElem.appendChild(imageElem);
     cardElem.appendChild(summaryElem);
+    cardElem.appendChild(linkElem);
 
     fragment.appendChild(cardElem);
   }
