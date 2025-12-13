@@ -1,3 +1,11 @@
 #root {
-  color: red;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.episode-card {
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
 }
