@@ -64,9 +64,15 @@ function addSearchBox() {
   searchBox.id = "search-input";
   searchBox.placeholder = "Search episodes";
   document.body.prepend(searchBox);
-  return searchBox;
+  
+ return searchBox;
 }
-
+ function countDisplay(){
+   const count = document.createElement("p");
+   count.id = "episode-count";
+   document.body.prepend(count);
+   return count;
+ }
 
 function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
   return (
@@ -77,12 +83,15 @@ function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
 
 
 function searchBox(allEpisodes) {
-  const searchInput = addSearchBox();
+  const searchInput=addSearchBox();
+  const count=countDisplay();
+  count.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes.`;
   searchInput.addEventListener("input", (event) => {
     const inputVal = event.target.value.toLowerCase();
     const newEpisodeList = allEpisodes.filter((episode) =>
       doesEpisodeMatchSearch(episode, inputVal)
     );
+    count.textContent = `Displaying ${newEpisodeList.length}/${allEpisodes.length} episodes.`;
     makePageForEpisodes(newEpisodeList);
   });
 }
