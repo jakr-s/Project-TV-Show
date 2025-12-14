@@ -1,25 +1,28 @@
 //You can edit ALL of the code here
 function setup() {
   const allEpisodes = getAllEpisodes();
+  searchBox(allEpisodes);
   makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-
+  rootElem.textContent = "";
   const fragment = document.createDocumentFragment();
 
   for (const episode of episodeList) {
-    const card=episodeCard(episode);
+    const card = episodeCard(episode);
     fragment.appendChild(card);
   }
 
   rootElem.appendChild(fragment);
 }
 
-
 function formatEpisodeCode({ season, number }) {
-  return `S${String(season).padStart(2, "0")}E${String(number).padStart(2,"0")}`;
+  return `S${String(season).padStart(2, "0")}E${String(number).padStart(
+    2,
+    "0"
+  )}`;
 }
 
 function episodeCard(episode) {
@@ -53,9 +56,34 @@ function episodeCard(episode) {
   cardElem.appendChild(imageElem);
   cardElem.appendChild(summaryElem);
   cardElem.appendChild(linkElem);
-    return cardElem;
+  return cardElem;
 }
 
+function addSearchBox() {
+  const searchBox = document.createElement("input");
+  searchBox.type = "search";
+  searchBox.id = "search-input";
+  searchBox.placeholder = "Search episodes";
+  document.body.prepend(searchBox);
+  return searchBox;
+}
+//event.target.value;
 
+function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
+  return (
+    (name ||"").toLowerCase().includes(searchInputValue) ||
+    (summary ||"").toLowerCase().includes(searchInputValue)
+  );
+}
+function searchBox(allEpisodes) {
+  const searchInput = addSearchBox();
+  searchInput.addEventListener("input", (event) => {
+    const inputVal = event.target.value.toLowerCase();
+    const newEpisodeList = allEpisodes.filter((episode) =>
+      doesEpisodeMatchSearch(episode, inputVal)
+    );
+    makePageForEpisodes(newEpisodeList);
+  });
+}
 
 window.onload = setup;
