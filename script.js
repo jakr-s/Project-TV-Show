@@ -7,7 +7,7 @@ function setup() {
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = "";
+  rootElem.textContent = "";  //clear the root
   const fragment = document.createDocumentFragment();
 
   for (const episode of episodeList) {
@@ -24,7 +24,7 @@ function formatEpisodeCode({ season, number }) {
     "0"
   )}`;
 }
-
+// I did nothing here just extracte the function
 function episodeCard(episode) {
   const epCode = formatEpisodeCode(episode);
 
@@ -58,7 +58,6 @@ function episodeCard(episode) {
   cardElem.appendChild(linkElem);
   return cardElem;
 }
-
 function addSearchBox() {
   const searchBox = document.createElement("input");
   searchBox.type = "search";
@@ -67,7 +66,7 @@ function addSearchBox() {
   document.body.prepend(searchBox);
   return searchBox;
 }
-//event.target.value;
+
 
 function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
   return (
@@ -75,6 +74,8 @@ function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
     (summary ||"").toLowerCase().includes(searchInputValue)
   );
 }
+
+
 function searchBox(allEpisodes) {
   const searchInput = addSearchBox();
   searchInput.addEventListener("input", (event) => {
