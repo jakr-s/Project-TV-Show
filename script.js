@@ -2,12 +2,13 @@
 function setup() {
   const allEpisodes = getAllEpisodes();
   searchBox(allEpisodes);
+  addEpisodeSelector(allEpisodes);
   makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
-  rootElem.textContent = "";  //clear the root
+  rootElem.textContent = ""; //clear the root
   const fragment = document.createDocumentFragment();
 
   for (const episode of episodeList) {
@@ -51,6 +52,8 @@ function episodeCard(episode) {
   linkElem.textContent = "View on TVMaze.com";
 
   const cardElem = document.createElement("article");
+  //add id for each episode for addEpisodeSelector
+  cardElem.id=formatEpisodeCode(episode)
   cardElem.className = "episode-card";
   cardElem.appendChild(titleElem);
   cardElem.appendChild(imageElem);
@@ -64,27 +67,46 @@ function addSearchBox() {
   searchBox.id = "search-input";
   searchBox.placeholder = "Search episodes";
   document.body.prepend(searchBox);
-  
- return searchBox;
+
+  return searchBox;
 }
- function countDisplay(){
-   const count = document.createElement("p");
-   count.id = "episode-count";
-   document.body.prepend(count);
-   return count;
- }
+function countDisplay() {
+  const count = document.createElement("p");
+  count.id = "episode-count";
+  document.body.prepend(count);
+  return count;
+}
+function addEpisodeSelector(allEpisodes){
+  const select =document.createElement("select");
+  select.id="episode-selector";
+  const placeholder=document.createElement("option");
+  placeholder.value="";
+  placeholder.textContent=" Select an episode ...";
+  select.appendChild(placeholder);
+  
+  for(const episode of allEpisodes)
+  {
+    const code=formatEpisodeCode(episode);
+    const option=document.createElement("option");
+    option.value= code;
+    option.textContent=`${code} - ${episode.name}`;
+    select.appendChild(option);
+  }
+  document.body.prepend(select);
+  return select;
+}
 
 function doesEpisodeMatchSearch({ name, summary }, searchInputValue) {
   return (
-    (name ||"").toLowerCase().includes(searchInputValue) ||
-    (summary ||"").toLowerCase().includes(searchInputValue)
+    (name || "").toLowerCase().includes(searchInputValue) ||
+    (summary || "").toLowerCase().includes(searchInputValue)
   );
 }
 
-
 function searchBox(allEpisodes) {
-  const searchInput=addSearchBox();
-  const count=countDisplay();
+  const count = countDisplay();
+  const searchInput = addSearchBox();
+  
   count.textContent = `Displaying ${allEpisodes.length}/${allEpisodes.length} episodes.`;
   searchInput.addEventListener("input", (event) => {
     const inputVal = event.target.value.toLowerCase();
