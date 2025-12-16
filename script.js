@@ -52,7 +52,7 @@ function episodeCard({ name, image, season, number, summary }) {
 
   const img = card.querySelector(".episode-img");
   img.src = image.medium;
-  img.alt = name;
+  img.alt = `Poster for '${name}'`;
 
   card.querySelector(".episode-summary").innerHTML = summary;
   return card;
