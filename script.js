@@ -1,12 +1,31 @@
 let allEpisodes = [];
 let isShowingSelected = false;
+let dataLoaded = false;
 
 function setup() {
-  allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-  setupSearch();
-  setupEpisodeSelector();
   setupShowAllButton();
+  showLoadingMessage();
+  fetchEpisodes();
+}
+
+async function fetchEpisodes() {
+  try {
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    allEpisodes = await response.json();
+    dataLoaded = true;
+    hideLoadingMessage();
+    hideErrorMessage();
+    makePageForEpisodes(allEpisodes);
+    setupSearch();
+    setupEpisodeSelector();
+  } catch (error) {
+    console.error("Error fetching episodes:", error);
+    hideLoadingMessage();
+    showErrorMessage();
+  }
 }
 
 /* Page Creation */
@@ -125,6 +144,22 @@ function setupShowAllButton() {
 
 function formatEpisodeCode(season, number) {
   return `S${String(season).padStart(2, "0")}E${String(number).padStart(2, "0")}`;
+}
+
+function showLoadingMessage() {
+  document.getElementById("loading-message").style.display = "block";
+}
+
+function hideLoadingMessage() {
+  document.getElementById("loading-message").style.display = "none";
+}
+
+function showErrorMessage() {
+  document.getElementById("error-message").style.display = "block";
+}
+
+function hideErrorMessage() {
+  document.getElementById("error-message").style.display = "none";
 }
 
 window.onload = setup;

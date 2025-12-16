@@ -9,6 +9,13 @@
   </head>
 
   <body>
+    <div id="loading-message">Loading episodes... please wait.</div>
+    <div id="error-message">
+      <p>
+        Sorry, there was an error loading the episodes. Please refresh the page
+        and try again.
+      </p>
+    </div>
     <div id="search-container">
       <input
         type="text"
@@ -35,9 +42,6 @@
         <p class="episode-summary"></p>
       </article>
     </template>
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
