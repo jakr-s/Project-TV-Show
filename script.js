@@ -54,7 +54,9 @@ function episodeCard({ name, image, season, number, summary }) {
   img.src = image.medium;
   img.alt = `Poster for '${name}'`;
 
-  card.querySelector(".episode-summary").innerHTML = summary;
+  card.querySelector(".episode-summary").textContent =
+    summary?.replace(/<[^>]+>/g, "") || "No summary available.";
+
   return card;
 }
 
