@@ -34,6 +34,22 @@ body {
   color: #666;
 }
 
+#show-all-btn {
+  display: none;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+#show-all-btn:hover {
+  background-color: #357abd;
+}
+
 #root {
   max-width: 1200px;
   margin: 20px auto;
