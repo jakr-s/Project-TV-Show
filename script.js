@@ -248,4 +248,28 @@ function clearEpisodeSelector() {
   select.value = "";
 }
 
+/* View Management */
+
+function switchToEpisodeView() {
+  document.getElementById("show-controls").style.display = "none";
+  document.getElementById("episode-controls").style.display = "block";
+}
+
+function switchToShowView() {
+  document.getElementById("episode-controls").style.display = "none";
+  document.getElementById("show-controls").style.display = "block";
+  makePageForShows(allShows);
+  // Reset show search
+  document.getElementById("show-search-input").value = "";
+  updateShowCount(allShows.length);
+}
+
+function setupBackButton() {
+  document.getElementById("back-to-shows").addEventListener("click", () => {
+    switchToShowView();
+    // Clear selected show in dropdown
+    document.getElementById("show-select").value = "";
+  });
+}
+
 window.onload = setup;
