@@ -17,24 +17,36 @@
       </p>
     </div>
     <div id="search-container">
-      <select id="show-select">
-        <option value="">Select a show...</option>
-      </select>
-
-      <div id="episode-selector-container">
-        <select id="episode-select">
-          <option value="">Jump to an episode...</option>
-        </select>
-        <button id="show-all-btn">Show All Episodes</button>
+      <div id="show-controls">
+        <input
+          type="text"
+          id="show-search-input"
+          placeholder="Search shows..."
+        />
+        <p id="show-count"></p>
       </div>
 
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search episodes by name or summary..."
-      />
+      <div id="episode-controls" style="display: none">
+        <button id="back-to-shows">Back to Shows</button>
+        <select id="show-select">
+          <option value="">Select a show...</option>
+        </select>
 
-      <p id="episode-count"></p>
+        <div id="episode-selector-container">
+          <select id="episode-select">
+            <option value="">Jump to an episode...</option>
+          </select>
+          <button id="show-all-btn">Show All Episodes</button>
+        </div>
+
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search episodes by name or summary..."
+        />
+
+        <p id="episode-count"></p>
+      </div>
     </div>
     <div id="root"></div>
     <template id="episode-Card">
