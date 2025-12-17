@@ -12,13 +12,19 @@
     <div id="loading-message" style="display: none">
       Loading... please wait.
     </div>
+
     <div id="error-message" style="display: none">
       <p>
         Sorry, there was an error loading the data. Please refresh the page and
         try again.
       </p>
     </div>
+
     <div id="search-container">
+      <select id="show-select">
+        <option value="">Select a show...</option>
+      </select>
+
       <div id="show-controls">
         <input
           type="text"
@@ -30,9 +36,6 @@
 
       <div id="episode-controls" style="display: none">
         <button id="back-to-shows">Back to Shows</button>
-        <select id="show-select">
-          <option value="">Select a show...</option>
-        </select>
 
         <div id="episode-selector-container">
           <select id="episode-select">
@@ -51,6 +54,7 @@
       </div>
     </div>
     <div id="root"></div>
+
     <template id="episode-Card">
       <article class="episode">
         <h3 class="episode-title"></h3>
@@ -60,6 +64,7 @@
         <p class="episode-summary"></p>
       </article>
     </template>
+
     <template id="show-Card">
       <article class="show-card">
         <h3 class="show-title"></h3>
@@ -79,6 +84,7 @@
         </div>
       </article>
     </template>
+
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
