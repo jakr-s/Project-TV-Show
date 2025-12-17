@@ -34,10 +34,7 @@ function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
   rootElem.innerHTML = ""; // Clear previous episodes
 
-  episodeList.forEach((episode) => {
-    const cardElem = episodeCard(episode);
-    rootElem.append(cardElem);
-  });
+  rootElem.append(...episodeList.map((episode) => episodeCard(episode)));
 
   updateEpisodeCount(episodeList.length);
 }
