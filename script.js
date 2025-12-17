@@ -168,8 +168,10 @@ function showCard(show) {
   card.querySelector(".show-summary").innerHTML =
     show.summary || "No summary available.";
 
-  card.querySelector(".show-genres").textContent = show.genres.join(", ");
-  card.querySelector(".show-status").textContent = show.status;
+  card.querySelector(".show-genres").textContent = (show.genres || []).join(
+    ", "
+  );
+  card.querySelector(".show-status").textContent = show.status || "Unknown";
   card.querySelector(".show-rating").textContent =
     show.rating?.average || "N/A";
   card.querySelector(".show-runtime").textContent =
@@ -202,10 +204,14 @@ function handleShowSearch(event) {
 
 function matchesShow(show, searchTerm) {
   const lowerSearchTerm = searchTerm.toLowerCase();
+  const name = show.name ? show.name.toLowerCase() : "";
+  const summary = show.summary ? show.summary.toLowerCase() : "";
+  const genres = show.genres || [];
+
   return (
-    show.name.toLowerCase().includes(lowerSearchTerm) ||
-    show.summary?.toLowerCase().includes(lowerSearchTerm) ||
-    show.genres.some((genre) => genre.toLowerCase().includes(lowerSearchTerm))
+    name.includes(lowerSearchTerm) ||
+    summary.includes(lowerSearchTerm) ||
+    genres.some((genre) => genre.toLowerCase().includes(lowerSearchTerm))
   );
 }
 
