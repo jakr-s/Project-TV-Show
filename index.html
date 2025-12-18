@@ -9,34 +9,52 @@
   </head>
 
   <body>
-    <div id="loading-message">Loading episodes... please wait.</div>
-    <div id="error-message">
+    <div id="loading-message" style="display: none">
+      Loading... please wait.
+    </div>
+
+    <div id="error-message" style="display: none">
       <p>
-        Sorry, there was an error loading the episodes. Please refresh the page
-        and try again.
+        Sorry, there was an error loading the data. Please refresh the page and
+        try again.
       </p>
     </div>
+
     <div id="search-container">
       <select id="show-select">
         <option value="">Select a show...</option>
       </select>
 
-      <div id="episode-selector-container">
-        <select id="episode-select">
-          <option value="">Jump to an episode...</option>
-        </select>
-        <button id="show-all-btn">Show All Episodes</button>
+      <div id="show-controls">
+        <input
+          type="text"
+          id="show-search-input"
+          placeholder="Search shows..."
+        />
+        <p id="show-count"></p>
       </div>
 
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search episodes by name or summary..."
-      />
+      <div id="episode-controls" style="display: none">
+        <button id="back-to-shows">Back to Shows</button>
 
-      <p id="episode-count"></p>
+        <div id="episode-selector-container">
+          <select id="episode-select">
+            <option value="">Jump to an episode...</option>
+          </select>
+          <button id="show-all-btn">Show All Episodes</button>
+        </div>
+
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search episodes by name or summary..."
+        />
+
+        <p id="episode-count"></p>
+      </div>
     </div>
     <div id="root"></div>
+
     <template id="episode-Card">
       <article class="episode">
         <h3 class="episode-title"></h3>
@@ -46,6 +64,27 @@
         <p class="episode-summary"></p>
       </article>
     </template>
+
+    <template id="show-Card">
+      <article class="show-card">
+        <h3 class="show-title"></h3>
+        <div class="show-content">
+          <img class="show-img" src="" alt="" />
+          <div class="show-info">
+            <p class="show-summary"></p>
+            <div class="show-details">
+              <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+              <p><strong>Status:</strong> <span class="show-status"></span></p>
+              <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+              <p>
+                <strong>Runtime:</strong> <span class="show-runtime"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>
