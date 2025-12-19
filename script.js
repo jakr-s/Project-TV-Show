@@ -137,3 +137,12 @@ function formatEpisodeCode(season, number) {
     "0"
   )}`;
 }
+
+// level-400 plan
+//https://api.tvmaze.com/shows
+// add select element to the HTML file 
+//I need a why to fetch all show and store them and state object 
+//I need a why so sort show in alphabetical order 
+//add the shows to select as options
+//take the episodes of the selected show and store them in state.allEpisodes
+//make suer all feature works
