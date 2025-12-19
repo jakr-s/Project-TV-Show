@@ -124,6 +124,11 @@ function updateEpisodeCount(count) {
 
 function setupEpisodeSelector() {
   const select = document.getElementById("episode-select");
+  select.addEventListener("change", handleEpisodeSelect);
+  populateEpisodeSelector();
+}
+function populateEpisodeSelector() {
+  const select = document.getElementById("episode-select");
   select.innerHTML = '<option value="">Jump to an episode...</option>';
   state.allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
@@ -132,10 +137,7 @@ function setupEpisodeSelector() {
     option.textContent = `${episodeCode} - ${episode.name}`;
     select.append(option);
   });
-
-  select.addEventListener("change", handleEpisodeSelect);
 }
-
 function handleEpisodeSelect(event) {
   const selectedId = event.target.value;
 
@@ -176,7 +178,6 @@ function setupShowsSelector() {
     showsSelector.append(option);
   });
   showsSelector.addEventListener("change", handleShowsSelector);
-  
 }
 async function handleShowsSelector(event) {
   const showId = Number(event.target.value);
@@ -197,7 +198,8 @@ async function handleShowsSelector(event) {
     state.searchTerm = "";
     document.getElementById("search-input").value = "";
     makePageForEpisodes(state.allEpisodes);
-    setupEpisodeSelector(state.allEpisodes);
+    populateEpisodeSelector();
+    document.getElementById("episode-select").value = "";
     statusElm.textContent = "";
   } catch {
     statusElm.textContent =
