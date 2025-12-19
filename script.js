@@ -15,55 +15,54 @@ const state = {
   allShows: [],
   allEpisodes: [],
   searchTerm: "",
+  episodeByShowId: new Map(),
 };
 
 // fetch the data
-const endpoint = "https://api.tvmaze.com/shows/82/episodes";
+
 const fetchAllShows = async () => {
   const response = await fetch("https://api.tvmaze.com/shows");
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return await response.json();
 };
 
-const fetchAllEpisodes = async () => {
-  const response = await fetch(endpoint);
+const fetchEpisodesForShow = async (showId) => {
+  const url = `https://api.tvmaze.com/shows/${showId}/episodes`;
+  const response = await fetch(url);
   if (!response.ok) throw new Error(`HTTP ${response.status}`);
   return await response.json();
 };
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   const statusElm = document.getElementById("status");
-  statusElm.textContent = "Loading episodes ...";
-  console.log(state.allEpisodes);
-fetchAllShows().then((shows)=>{
-  state.allShows = shows;
-   state.allShows.sort((a, b) =>
-     a.name.toLowerCase().localeCompare(b.name.toLowerCase())
-   );
+  statusElm.textContent = "Loading  ...";
 
-  console.log(state.allShows);
-})
+  try {
+    const [shows, episodes] = await Promise.all([
+      fetchAllShows(),
+      fetchEpisodesForShow(82),
+    ]);
+    state.allShows = shows.sort((a, b) =>
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+    );
+    state.episodeByShowId.set(82, episodes);
+    state.allEpisodes = episodes;
 
-  fetchAllEpisodes()
-    .then((episodes) => {
-      state.allEpisodes = episodes;
-      statusElm.textContent = "";
-      console.log(state.allEpisodes);
-      setup();
-    })
-    .catch(() => {
-      statusElm.textContent =
-        "Sorry- failed to load episodes. Please refresh the page";
-    });
+    statusElm.textContent = "";
+    setup();
+  } catch {
+    statusElm.textContent =
+      "Sorry, failed to load data. Please refresh the page.";
+  }
 });
 
 //rendering
 
 function setup() {
-  makePageForEpisodes(state.allEpisodes);
   setupSearch();
   setupEpisodeSelector();
-  setupShowsSelector()
+  setupShowsSelector();
+  makePageForEpisodes(state.allEpisodes);
 }
 
 /* Page Creation */
@@ -158,7 +157,7 @@ function formatEpisodeCode(season, number) {
 }
 
 // level-400 plan
-//https://api.tvmaze.com/shows
+//https://api.tvmaze.com/shows/show.id/show.name
 // add select element to the HTML file
 //I need a why to fetch all show and store them and state object
 //I need a why so sort show in alphabetical order
@@ -166,15 +165,42 @@ function formatEpisodeCode(season, number) {
 //take the episodes of the selected show and store them in state.allEpisodes
 //make suer all feature works
 
-
 /* Shows Select Dropdown */
-function setupShowsSelector(){
-const showsSelector = document.getElementById("show-selector");
-showsSelector.innerHTML = '<option value="">Select a show...</option>';
-state.allShows.forEach((show)=>{
-  const option=document.createElement("option");
-  option.value=String(show.id);
-  option.textContent=`${show.name}`;
-  showsSelector.append(option);
-})
+function setupShowsSelector() {
+  const showsSelector = document.getElementById("show-selector");
+  showsSelector.innerHTML = '<option value="">Select a show...</option>';
+  state.allShows.forEach((show) => {
+    const option = document.createElement("option");
+    option.value = show.id;
+    option.textContent = `${show.name}`;
+    showsSelector.append(option);
+  });
+  showsSelector.addEventListener("change", handleShowsSelector);
+  
+}
+async function handleShowsSelector(event) {
+  const showId = Number(event.target.value);
+  if (!showId) return;
+  const statusElm = document.getElementById("status");
+  statusElm.textContent = "Loading episodes ...";
+  try {
+    let episodes;
+    if (state.episodeByShowId.has(showId)) {
+      episodes = state.episodeByShowId.get(showId);
+    } else {
+      episodes = await fetchEpisodesForShow(showId);
+      state.episodeByShowId.set(showId, episodes);
+    }
+    state.allEpisodes = episodes;
+
+    // clean the search
+    state.searchTerm = "";
+    document.getElementById("search-input").value = "";
+    makePageForEpisodes(state.allEpisodes);
+    setupEpisodeSelector(state.allEpisodes);
+    statusElm.textContent = "";
+  } catch {
+    statusElm.textContent =
+      "Sorry - failed to load episodes. Please refresh the page.";
+  }
 }
