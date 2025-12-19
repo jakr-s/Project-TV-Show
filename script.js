@@ -12,12 +12,18 @@
 // I created an id for each episode and used the same id as the option value
 
 const state = {
+  allShows: [],
   allEpisodes: [],
   searchTerm: "",
 };
 
 // fetch the data
 const endpoint = "https://api.tvmaze.com/shows/82/episodes";
+const fetchAllShows = async () => {
+  const response = await fetch("https://api.tvmaze.com/shows");
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return await response.json();
+};
 
 const fetchAllEpisodes = async () => {
   const response = await fetch(endpoint);
@@ -28,10 +34,17 @@ const fetchAllEpisodes = async () => {
 window.addEventListener("load", () => {
   const statusElm = document.getElementById("status");
   statusElm.textContent = "Loading episodes ...";
+  console.log(state.allEpisodes);
+fetchAllShows().then((shows)=>{
+  state.allShows=shows;
+  console.log(state.allShows)
+})
+
   fetchAllEpisodes()
     .then((episodes) => {
       state.allEpisodes = episodes;
       statusElm.textContent = "";
+      console.log(state.allEpisodes);
       setup();
     })
     .catch(() => {
@@ -140,9 +153,9 @@ function formatEpisodeCode(season, number) {
 
 // level-400 plan
 //https://api.tvmaze.com/shows
-// add select element to the HTML file 
-//I need a why to fetch all show and store them and state object 
-//I need a why so sort show in alphabetical order 
+// add select element to the HTML file
+//I need a why to fetch all show and store them and state object
+//I need a why so sort show in alphabetical order
 //add the shows to select as options
 //take the episodes of the selected show and store them in state.allEpisodes
 //make suer all feature works
