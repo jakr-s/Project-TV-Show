@@ -37,7 +37,9 @@ window.addEventListener("load", () => {
   console.log(state.allEpisodes);
 fetchAllShows().then((shows)=>{
   state.allShows=shows;
+ 
   console.log(state.allShows)
+  
 })
 
   fetchAllEpisodes()
@@ -59,6 +61,7 @@ function setup() {
   makePageForEpisodes(state.allEpisodes);
   setupSearch();
   setupEpisodeSelector();
+  setupShowsSelector()
 }
 
 /* Page Creation */
@@ -142,6 +145,7 @@ function handleEpisodeSelect(event) {
   if (!selectedElement) return;
   selectedElement.scrollIntoView({ behavior: "smooth", block: "start" });
 }
+
 /* Helper Functions */
 
 function formatEpisodeCode(season, number) {
@@ -159,3 +163,16 @@ function formatEpisodeCode(season, number) {
 //add the shows to select as options
 //take the episodes of the selected show and store them in state.allEpisodes
 //make suer all feature works
+
+
+/* Shows Select Dropdown */
+function setupShowsSelector(){
+const showsSelector = document.getElementById("show-selector");
+showsSelector.innerHTML = '<option value="">Select a show...</option>';
+state.allShows.forEach((show)=>{
+  const option=document.createElement("option");
+  option.value=String(show.id);
+  option.textContent=`${show.name}`;
+  showsSelector.append(option);
+})
+}
