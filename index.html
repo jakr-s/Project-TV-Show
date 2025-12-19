@@ -1,48 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Jak Rhodes-Smith (Jakr-s)</title>
+    <title>TV Show Project | Ahmad Hmedan (AhmadHmedann)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-    <div id="loading-message">Loading episodes... please wait.</div>
-    <div id="error-message">
-      <p>
-        Sorry, there was an error loading the episodes. Please refresh the page
-        and try again.
-      </p>
-    </div>
-    <div id="search-container">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search episodes by name or summary..."
-      />
-      <div id="episode-selector-container">
-        <select id="episode-select">
-          <option value="">Jump to an episode...</option>
-        </select>
-        <button id="show-all-btn" style="display: none">
-          Show All Episodes
-        </button>
-      </div>
-      <p id="episode-count"></p>
-    </div>
-    <div id="root"></div>
-    <template id="episode-Card">
-      <article class="episode">
-        <h3 class="episode-title"></h3>
-        <div class="episode-media">
-          <img class="episode-img" src="" alt="" />
+    <main>
+      <div id="search-container">
+        <label for="search-input" class="sr-only" style="display: none"
+          >Search episodes</label
+        >
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search episodes by name or summary..."
+        />
+
+        <div id="episode-selector-container">
+          <select id="episode-select">
+            <option value="">Jump to an episode...</option>
+          </select>
         </div>
-        <p class="episode-summary"></p>
-      </article>
-    </template>
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
+        <p id="episode-count"></p>
+      </div>
+      <p id="status"></p>
+      <div id="root"></div>
+      <template id="episode-card-template">
+        <article class="episode">
+          <h3 class="episode-title"></h3>
+          <div class="episode-media">
+            <img class="episode-img" src="" alt="" />
+          </div>
+          <p class="episode-summary"></p>
+        </article>
+      </template>
+    
+
+      <!-- Loads YOUR javascript code -->
+      <script src="script.js"></script>
+    </main>
+
+    <footer>
+      Data originally from
+      <a
+        href="https://www.tvmaze.com/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >TVMaze.com</a
+      >.
+    </footer>
   </body>
 </html>
