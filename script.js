@@ -36,10 +36,12 @@ window.addEventListener("load", () => {
   statusElm.textContent = "Loading episodes ...";
   console.log(state.allEpisodes);
 fetchAllShows().then((shows)=>{
-  state.allShows=shows;
- 
-  console.log(state.allShows)
-  
+  state.allShows = shows;
+   state.allShows.sort((a, b) =>
+     a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+   );
+
+  console.log(state.allShows);
 })
 
   fetchAllEpisodes()
