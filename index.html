@@ -21,34 +21,58 @@
     </div>
 
     <div id="search-container">
-      <select id="show-select">
-        <option value="">Select a show...</option>
-      </select>
+      <div class="search-section">
+        <label class="search-section-label">Select a TV Show</label>
+        <select id="show-select">
+          <option value="">Select a show...</option>
+        </select>
+      </div>
 
       <div id="show-controls">
-        <input
-          type="text"
-          id="show-search-input"
-          placeholder="Search shows..."
-        />
+        <div class="search-input-wrapper">
+          <label for="show-search-input" class="search-section-label"
+            >Search Shows</label
+          >
+          <input
+            type="text"
+            id="show-search-input"
+            placeholder="Search by name, genre, or summary..."
+          />
+        </div>
         <p id="show-count"></p>
       </div>
 
       <div id="episode-controls" style="display: none">
-        <button id="back-to-shows">Back to Shows</button>
-
-        <div id="episode-selector-container">
-          <select id="episode-select">
-            <option value="">Jump to an episode...</option>
-          </select>
-          <button id="show-all-btn">Show All Episodes</button>
+        <div id="button-group">
+          <button id="back-to-shows" class="btn-secondary">
+            ← Back to Shows
+          </button>
+          <button id="show-all-btn" class="btn-primary">
+            Show All Episodes
+          </button>
         </div>
 
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search episodes by name or summary..."
-        />
+        <div id="episode-selector-container">
+          <div class="search-section">
+            <label for="episode-select" class="search-section-label"
+              >Jump to Episode</label
+            >
+            <select id="episode-select">
+              <option value="">Jump to an episode...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="search-input-wrapper">
+          <label for="search-input" class="search-section-label"
+            >Search Episodes</label
+          >
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by episode name or summary..."
+          />
+        </div>
 
         <p id="episode-count"></p>
       </div>
