@@ -9,15 +9,23 @@
   </head>
 
   <body>
-    <div id="loading-message" style="display: none">
-      Loading... please wait.
+    <div id="modal-backdrop" class="modal-backdrop" style="display: none"></div>
+
+    <div id="loading-message" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="spinner"></div>
+        <p>Loading... please wait.</p>
+      </div>
     </div>
 
-    <div id="error-message" style="display: none">
-      <p>
-        Sorry, there was an error loading the data. Please refresh the page and
-        try again.
-      </p>
+    <div id="error-message" class="modal" style="display: none">
+      <div class="modal-content modal-error">
+        <h2>Error</h2>
+        <p>
+          Sorry, there was an error loading the data. Please refresh the page
+          and try again.
+        </p>
+      </div>
     </div>
 
     <div id="search-container">

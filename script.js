@@ -304,18 +304,22 @@ function formatEpisodeCode(season, number) {
 }
 
 function showLoadingMessage() {
+  document.getElementById("modal-backdrop").style.display = "block";
   document.getElementById("loading-message").style.display = "block";
 }
 
 function hideLoadingMessage() {
+  document.getElementById("modal-backdrop").style.display = "none";
   document.getElementById("loading-message").style.display = "none";
 }
 
 function showErrorMessage() {
+  document.getElementById("modal-backdrop").style.display = "block";
   document.getElementById("error-message").style.display = "block";
 }
 
 function hideErrorMessage() {
+  document.getElementById("modal-backdrop").style.display = "none";
   document.getElementById("error-message").style.display = "none";
 }
 
